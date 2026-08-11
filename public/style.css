@@ -1,0 +1,231 @@
+
+:root {
+  --bs-body-font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --bs-primary: #00A6A7;
+  --bs-primary-rgb: 0, 166, 167;
+  --bs-body-color: #2F3E46;
+  --bs-body-bg: #F7F9FB;    
+}
+
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2F3E46; 
+  background-color: #f5f2f2;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #2F3E46; 
+}
+
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+
+
+.text-muted, 
+.text-body-secondary, 
+p.description {
+  color: #718096 !important;
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+
+.price {
+  font-weight: 600;
+  color: #00A6A7; 
+}
+
+
+.btn-primary {
+  background-color: #00A6A7;
+  border-color: #00A6A7;
+}
+
+.btn-primary:hover {
+  background-color: #008D8E;
+  border-color: #008D8E;
+}
+
+.navbar{
+  position: sticky;
+  top: 0;
+  z-index: 1030; 
+  margin-top: 0 !important;
+
+  height: 5rem;
+  background-color: rgba(255, 255, 255, 0.6) !important; 
+  -webkit-backdrop-filter: blur(20px); 
+  backdrop-filter: none; 
+  backdrop-filter: blur(20px); 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+.brand-logo {
+  max-height: 55px;
+  width: auto;
+  margin-left: -20px; 
+}
+
+
+.navbar-nav .nav-link {
+  display: inline-flex !important;
+  align-items: center;
+  width: auto !important;
+  padding: 0.5rem 1.25rem !important;
+  border-radius: 50rem !important; 
+  font-weight: 500;
+  color: #2F3E46 !important;
+  transition: all 0.25s ease-in-out;
+}
+
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #00A6A7 !important;
+  background-color: rgba(0, 166, 167, 0.08);
+}
+
+
+
+/* Mobile expanded menu container */
+@media (max-width: 767.98px) {
+
+  .navbar-collapse {
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
+  transform: translateY(-8px);
+  opacity: 0;
+  display: block;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+.navbar-collapse.show {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+} 
+  .navbar-collapse-inner {
+    background-color: #ffffff !important; 
+    margin-top: 0.75rem;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); 
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-nav {
+    width: 100%;
+    gap: 4px !important;
+    align-items: flex-start !important;
+  }
+  
+  .navbar-nav .nav-link {
+    display: inline-flex !important;
+    width: fit-content !important;
+    padding: 0.5rem 1.25rem !important;
+    border-radius: 50rem !important;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: #2F3E46 !important;
+    transition: background-color 0.2s ease;
+  }
+
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link.active {
+    color: #00A6A7 !important;
+    background-color: rgba(0, 166, 167, 0.1) !important;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-collapse {
+    opacity: 1 !important;
+    visibility: visible !important;
+    height: auto !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+}
+footer {
+    background-color: #24333c; /* Deep Navy Base matching logo */
+    color: #a0b2be;            /* Soft light blue-grey text */
+    padding: 35px 40px;        /* Generous padding buffer */
+    
+    /* Adds a subtle top border using your brand teal */
+    border-top: 2px solid #38b6a0; 
+}
+
+.f-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+}
+
+/* Copyright text styling */
+.f-info > div:first-child {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+/* Social icons styling */
+.f-info-socials {
+    display: flex;
+    gap: 20px;
+    margin: 5px 0;
+}
+
+.f-info-socials i {
+    font-size: 20px;
+    color: #38b6a0;            /* Teal matching logo icon */
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.f-info-socials i:hover {
+    color: #4ed9c0;            /* Brighter teal on hover */
+    transform: translateY(-2px);
+}
+
+/* Links layout */
+.f-info-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.f-info-links a {
+    color: #a0b2be;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s ease;
+}
+
+.f-info-links a:hover {
+    color: #38b6a0;            /* Teal highlight on hover */
+    text-decoration: underline;
+}
+
+.f-info-links .separator {
+    color: #38b6a0;            
+    font-size: 13px;
+    opacity: 0.5;
+}
