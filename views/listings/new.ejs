@@ -1,27 +1,100 @@
 <% layout("/layouts/boilerplate") %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenHop</title>
-</head>
-<body>
-    <h3>Create a New Listing</h3>
-    <form method="POST" action="/listings">
-        <input name="listing[title]" placeholder="enter title" type="text">
-        <br><br>
-        <textarea name="listing[description]" placeholder="enter description" type="text"></textarea>
-        <br><br>
-        <input name="listing[image][url]" placeholder="enter image URL/Link" type="text">
-        <br><br>
-        <input name="listing[price]" placeholder="enter price" type="number">
-        <br><br>
-        <input name="listing[location]" placeholder="enter location" type="text">
-        <br><br>
-        <input name="listing[country]" placeholder="enter country" type="text">
-        <br><br>
-        <button type="submit">Add Listing</button>
-    </form>
-</body>
-</html>
+
+<div class="row mt-4 mb-5">
+  <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <div class="form-container">
+      <h2 class="form-title mb-1">Create a New Listing</h2>
+      <p class="text-body-secondary mb-4">Share your space with guests from around the world.</p>
+
+      <form method="POST" action="/listings" class="needs-validation" novalidate>
+        
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input 
+            id="title"
+            name="listing[title]" 
+            placeholder="e.g. Cozy Beachfront Villa" 
+            type="text" 
+            class="form-control"
+            required
+          >
+        </div>
+
+        <!-- Description -->
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea 
+            id="description"
+            name="listing[description]" 
+            placeholder="Describe what makes your space special..." 
+            class="form-control"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Image URL -->
+        <div class="mb-3">
+          <label for="image" class="form-label">Image URL / Link</label>
+          <input 
+            id="image"
+            name="listing[image][url]" 
+            placeholder="https://images.unsplash.com/..." 
+            type="text" 
+            class="form-control"
+          >
+        </div>
+
+        <!-- Price & Location (Side-by-Side on Desktop) -->
+        <div class="row">
+          <div class="mb-3 col-md-5">
+            <label for="price" class="form-label">Price (per night)</label>
+            <div class="input-group">
+              <span class="input-group-text">₹</span>
+              <input 
+                id="price"
+                name="listing[price]" 
+                placeholder="1500" 
+                type="number" 
+                class="form-control"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="mb-3 col-md-7">
+            <label for="location" class="form-label">Location</label>
+            <input 
+              id="location"
+              name="listing[location]" 
+              placeholder="e.g. Anjuna, Goa" 
+              type="text" 
+              class="form-control"
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Country -->
+        <div class="mb-4">
+          <label for="country" class="form-label">Country</label>
+          <input 
+            id="country"
+            name="listing[country]" 
+            placeholder="e.g. India" 
+            type="text" 
+            class="form-control"
+            required
+          >
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn btn-primary-custom w-100 py-2 fs-6 fw-semibold" type="submit">
+          Add Listing
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>

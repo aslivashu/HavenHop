@@ -1,26 +1,65 @@
 <% layout("/layouts/boilerplate") %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HavenHop</title>
-</head>
-<body>
-    <h3>Listing Details</h3>
-    <ul>
-        <li><%= listing.title %></li>
-        <li><%= listing.description %></li>
-        <li><img src="<%= listing.image.url %>" alt="Listing Image" width="200"></li>
-        <li>₹<%= listing.price.toLocaleString("en-IN") %></li>
-        <li><%= listing.location %></li>
-        <li><%= listing.country %></li>
-    </ul>
-    <br> 
-    <a href="/listings/ <%= listing._id %> /edit" >Edit this Listing</a>
-    <br><br>
-    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-        <button>Delete this listing</button>
-    </form>
-</body>
-</html>
+
+<div class="container my-3 my-md-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-lg-8">
+      
+       <!-- Details Card -->
+      <div class="show-card">
+        
+        <!-- Hero Image -->
+        <div class="show-img-wrapper">
+          <img 
+            src="<%= listing.image.url %>" 
+            class="show-img" 
+            alt="<%= listing.title %>"
+          >
+        </div>
+
+        <!-- Card Content -->
+        <div class="show-card-body">
+          
+          <!-- Header Title & Price -->
+          <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-2">
+            <h2 class="show-title mb-0"><%= listing.title %></h2>
+            <div class="show-price">
+              ₹<%= listing.price.toLocaleString("en-IN") %> <span class="price-period">/ night</span>
+            </div>
+          </div>
+
+          <!-- Location Badge -->
+          <p class="show-location mb-3">
+            📍 <%= listing.location %>, <%= listing.country %>
+          </p>
+
+          <hr class="show-divider">
+
+          <!-- Description -->
+          <div class="show-description mb-4">
+            <h5 class="fw-bold mb-2 text-dark fs-6">About this space</h5>
+            <p class="text-body-secondary mb-0"><%= listing.description %></p>
+          </div>
+
+          <!-- Action Buttons-->
+          <div class="row g-2 pt-2">
+            <div class="col-6">
+              <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-custom w-100 py-2 fw-semibold">
+                Edit Listing
+              </a>
+            </div>
+
+            <div class="col-6">
+              <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+                <button type="submit" class="btn btn-danger-custom w-100 py-2 fw-semibold">
+                  Delete Listing
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

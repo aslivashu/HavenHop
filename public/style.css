@@ -55,6 +55,7 @@ p.description {
   border-color: #008D8E;
 }
 
+/* Navbar Styles */
 .navbar{
   position: sticky;
   top: 0;
@@ -98,7 +99,7 @@ p.description {
 
 
 
-/* Mobile expanded menu container */
+
 @media (max-width: 767.98px) {
 
   .navbar-collapse {
@@ -162,12 +163,14 @@ p.description {
     overflow: visible !important;
   }
 }
+
+/* Footer Styles */
 footer {
-    background-color: #24333c; /* Deep Navy Base matching logo */
-    color: #a0b2be;            /* Soft light blue-grey text */
-    padding: 35px 40px;        /* Generous padding buffer */
+    background-color: #24333c; 
+    color: #a0b2be;           
+    padding: 35px 40px;      
     
-    /* Adds a subtle top border using your brand teal */
+  
     border-top: 2px solid #38b6a0; 
 }
 
@@ -179,14 +182,14 @@ footer {
     gap: 15px;
 }
 
-/* Copyright text styling */
+
 .f-info > div:first-child {
     font-size: 13px;
     letter-spacing: 0.5px;
     opacity: 0.9;
 }
 
-/* Social icons styling */
+
 .f-info-socials {
     display: flex;
     gap: 20px;
@@ -195,17 +198,16 @@ footer {
 
 .f-info-socials i {
     font-size: 20px;
-    color: #38b6a0;            /* Teal matching logo icon */
+    color: #38b6a0;           
     cursor: pointer;
     transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .f-info-socials i:hover {
-    color: #4ed9c0;            /* Brighter teal on hover */
+    color: #4ed9c0;            
     transform: translateY(-2px);
 }
 
-/* Links layout */
 .f-info-links {
     display: flex;
     align-items: center;
@@ -220,7 +222,7 @@ footer {
 }
 
 .f-info-links a:hover {
-    color: #38b6a0;            /* Teal highlight on hover */
+    color: #38b6a0;           
     text-decoration: underline;
 }
 
@@ -228,4 +230,326 @@ footer {
     color: #38b6a0;            
     font-size: 13px;
     opacity: 0.5;
+}
+
+
+/* Card Link Styles */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.listing-card {
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-radius: 22px !important; 
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  
+  transition: 
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.3s ease;
+  will-change: transform, box-shadow;
+}
+
+
+.listing-card:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 
+    0 16px 36px -6px rgba(0, 166, 167, 0.15), 
+    0 8px 20px -6px rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 166, 167, 0.25) !important;
+}
+
+
+.listing-card:active {
+  transform: translateY(-2px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition-duration: 0.1s; 
+}
+
+
+.listing-card img {
+  border-top-left-radius: 22px !important;
+  border-top-right-radius: 22px !important;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.listing-card:hover img {
+  transform: scale(1.06);
+}
+
+
+.listing-card .card-body {
+    padding: 18px;
+}
+
+.listing-card .card-text {
+    font-size: 15px;
+    color: #2d3748;
+    margin-bottom: 0;
+}
+
+.listing-card .card-text b {
+    font-size: 16px;
+    color: #1a202c;
+}
+
+.price-night {
+    font-size: 13px;
+    color: #718096;
+}
+.row {
+    row-gap: 1rem; 
+}
+.row.row-cols-lg-3 {
+    margin-bottom: 60px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .listing-card:hover {
+    transform: translateY(-8px) scale(1.015);
+    box-shadow: 
+      0 16px 36px -6px rgba(0, 166, 167, 0.15),
+      0 8px 20px -6px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 166, 167, 0.25) !important;
+  }
+
+  .listing-card:hover img {
+    transform: scale(1.06);
+  }
+}
+
+
+.listing-card:active {
+  transform: scale(0.96) translateY(2px) !important; 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  transition: transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.08s ease !important;
+}
+
+.listing-card:active img {
+  transform: scale(1.0) !important;
+}
+
+
+.listing-card img {
+  border-top-left-radius: 22px !important;
+  border-top-right-radius: 22px !important;
+  height: 220px;
+  object-fit: cover;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+
+/* Form Styles */
+.form-container {
+  background: #ffffff;
+  padding: 2.25rem;
+  border-radius: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.form-title {
+  font-weight: 700;
+  color: #2F3E46;
+}
+
+
+.form-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #2F3E46;
+  margin-bottom: 0.4rem;
+}
+
+
+.form-control, 
+.input-group-text {
+  border-radius: 14px !important;
+  border: 1.5px solid #E2E8F0;
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  color: #2F3E46;
+  background-color: #F8FAFC;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+
+.input-group-text {
+  background-color: #EDF2F7;
+  font-weight: 600;
+  color: #4A5568;
+  border-right: none;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.input-group .form-control {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+
+.form-control:focus {
+  background-color: #ffffff;
+  border-color: #00A6A7;
+  box-shadow: 0 0 0 4px rgba(0, 166, 167, 0.15);
+  outline: none;
+}
+
+
+.btn-primary-custom {
+  background-color: #00A6A7;
+  border: none;
+  color: #ffffff;
+  border-radius: 50rem;
+  padding: 0.75rem 1.5rem;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease, box-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-primary-custom:hover {
+  background-color: #008D8E;
+  box-shadow: 0 8px 20px -4px rgba(0, 166, 167, 0.35);
+  transform: translateY(-2px);
+  color: #ffffff;
+}
+
+.btn-primary-custom:active {
+  transform: scale(0.97) translateY(0);
+  box-shadow: none;
+}
+
+/* =========================================================
+   Samsung One UI Listing Details Page
+   ========================================================= */
+
+/* Main Details Card */
+.show-card {
+  background-color: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* Image Container & Styling */
+.show-img-wrapper {
+  width: 100%;
+  height: 280px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+@media (min-width: 576px) {
+  .show-img-wrapper {
+    height: 380px;
+  }
+}
+
+.show-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Body Content */
+.show-card-body {
+  padding: 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .show-card-body {
+    padding: 2.25rem;
+  }
+}
+
+/* Title & Meta */
+.show-title {
+  font-weight: 700;
+  color: #2F3E46;
+  font-size: 1.5rem;
+}
+
+@media (min-width: 576px) {
+  .show-title {
+    font-size: 1.85rem;
+  }
+}
+
+.show-price {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #00A6A7;
+}
+
+.price-period {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #718096;
+}
+
+.show-location {
+  color: #718096;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.show-divider {
+  border-top: 1px solid #edf2f7;
+  opacity: 1;
+  margin: 1.25rem 0;
+}
+
+/* Custom One UI Action Buttons */
+
+/* Outline Button (Edit) */
+.btn-outline-custom {
+  color: #00A6A7;
+  border: 1.5px solid #00A6A7;
+  background-color: transparent;
+  border-radius: 50rem;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-outline-custom:hover {
+  background-color: rgba(0, 166, 167, 0.08);
+  color: #008D8E;
+  border-color: #008D8E;
+}
+
+.btn-outline-custom:active {
+  transform: scale(0.96);
+  background-color: rgba(0, 166, 167, 0.15);
+}
+
+/* Soft Danger Button (Delete) */
+.btn-danger-custom {
+  background-color: #FFF5F5;
+  color: #E53E3E;
+  border: 1.5px solid #FED7D7;
+  border-radius: 50rem;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-danger-custom:hover {
+  background-color: #E53E3E;
+  color: #ffffff;
+  border-color: #E53E3E;
+  box-shadow: 0 4px 14px rgba(229, 62, 62, 0.25);
+}
+
+.btn-danger-custom:active {
+  transform: scale(0.96);
 }

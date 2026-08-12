@@ -7,21 +7,23 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 
 
-
+// MongoDB connection
 const Mongo_URL = "mongodb://localhost:27017/HavenHop";
 
+// Connect to MongoDB
 main().then(() => {
     console.log ("connected to DB");
 }).catch(err => console.log(err));
 
+// Start the server
 async function main(){
     await mongoose.connect(Mongo_URL);
 }
-app.get("/", (req, res) => {
+app.get("/", (req, res) => { 
   res.send("Hello, World!");
-});
+}); 
 
-
+// Set up EJS as the view engine and configure middleware
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));

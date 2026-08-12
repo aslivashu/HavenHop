@@ -7,16 +7,35 @@
     <title>HavenHop</title>
 </head>
 <body>
-    <h3>All Listings</h3>
-    <form method="GET" action="/listings/new">
-        <button >Add New Listing</button>
+    <!-- Heading -->
+    <h3 class="mb-4 fw-bold">All Listings</h3>
 
-    </form>
-    <ul>
-       <% for (let listing of allListings){ %>
-            <li><a href="/listings/<%= listing._id %> "> <%= listing.title %> </a> </li>
-        <% } %>
-    </ul>
+    <!-- Listings Grid -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+        <% for (let listing of allListings){ %>
+
+   <!-- Listing Card -->
+    <div class="col">
+                <a href="/listings/<%= listing._id %>" class="card-link"> 
+                    <div class="card listing-card h-100">
+
+                        <!-- Listing Image -->
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+        
+     <!-- Listing Details -->
+     <div class="card-body">
+        <p class="card-text">
+            <b><%= listing.title %></b>
+            <br>
+            ₹<%= listing.price.toLocaleString("en-IN") %> / night
+        </p>
+        </div>
+        </div>
+        </a>
+    </div>
+     <% } %>
+    </div>
+     
     
 </body>
 </html>
