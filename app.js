@@ -8,25 +8,29 @@ const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const {listingSchema} = require("./schema.js");
-
+const review = require("./models/review.js");
 
 // MongoDB connection
 const Mongo_URL = "mongodb://localhost:27017/HavenHop";
+
 
 // Connect to MongoDB
 main().then(() => {
     console.log ("connected to DB");
 }).catch(err => console.log(err));
 
+
 // Function to connect to MongoDB
 async function main(){
     await mongoose.connect(Mongo_URL);
 }
 
+
 // Middleware to parse request bodies
 app.get("/", (req, res) => { 
   res.send("Hello, World!");
 }); 
+
 
 // Middleware to validate listing data using Joi
 const validateListing = (req, res, next) => {
@@ -107,6 +111,20 @@ app.delete("/listings/:id", wrapAsync(async(req, res)=>{
 }));
 
 
+//review route
+app.post("/listings/:id/reviews", wrapAsync(async(req,res)=>{
+    const {id} = req.params;
+    let listing = await Listing.findById(id.trim());
+    let newReview = new Review(req.body.review);
+
+    listing.reviews.push(newReview);
+
+    await newReview.save();
+    await listing.save();
+    
+    res.redirect(`/listings/${id}`);
+}));
+
 // app.get("/testlisting", async(req, res)=>{
 //     let sampleTesting= new Listing({
 //         title: "newtitle",
@@ -117,14 +135,17 @@ app.delete("/listings/:id", wrapAsync(async(req, res)=>{
 //     console.log("Listing saved!");
 // });
 
+
 app.all("/*splat", (req, res, next)=>{
     next(new ExpressError(404, "Page Not Found"));
 });
+
 
 app.use((err, req, res, next)=>{
     const {statusCode=500, message= "Something went wrong"} = err;
     res.render("error.ejs", {statusCode, message});
 });
+
 
 //server listening
 app.listen(8080, () => {
