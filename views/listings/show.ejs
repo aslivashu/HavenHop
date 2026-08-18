@@ -86,7 +86,7 @@
                 <% listing.reviews.forEach(review => { %>
                   <div class="col-12 col-md-6">
                     <div class="card review-card h-100 p-3">
-                      <div class="user-display"><strong>User</strong></div>
+                      <div class="user-display"><strong>@anonymous.user</strong></div>
                       <div class="rating-display"> <%= review.rating %>⭐</div>
                       <div class="comment-display"> <%= review.comment %></div>
                       <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">

@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router(({ mergeParams: true }));
 
 const Listing = require("../models/listing.js");
 const review = require("../models/review.js");
@@ -23,6 +23,11 @@ const validateReview = (req, res, next) => {
  //post route-review
 router.post("/", validateReview, wrapAsync(async(req,res)=>{
     const {id} = req.params;
+
+    if (!id) {
+        throw new ExpressError(400, "Listing ID is missing");
+    }
+    
     let listing = await Listing.findById(id.trim());
     let newReview = new review(req.body.review);
 
