@@ -12,7 +12,13 @@ const sessionOptions ={
     secret: "thisshouldbeabettersecret!",
     resave: false,
     saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+        httpOnly: true,
+    }
 }
+const flash = require("connect-flash");
 
 const ExpressError = require("./utils/ExpressError.js");
 
@@ -50,6 +56,13 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(cookieParser());
 app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next)=>{
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+});
 
 //listing routes
 app.use("/listings", listings);
@@ -57,16 +70,15 @@ app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
 
 
+// Catch-all route for handling 404 errors
+app.all("/*splat", (req, res, next)=>{
+    next(new ExpressError(404, "Page Not Found"));
+});
 
 // Error handling middleware
 app.use((err, req, res, next)=>{
     const {statusCode=500, message= "Something went wrong"} = err;
     res.render("error.ejs", {statusCode, message});
-});
-
-// Catch-all route for handling 404 errors
-app.all("/*splat", (req, res, next)=>{
-    next(new ExpressError(404, "Page Not Found"));
 });
 
 
