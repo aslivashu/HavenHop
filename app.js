@@ -4,15 +4,9 @@ const app = express();
 
 const mongoose = require("mongoose");
 
-const Listing = require("./models/listing.js");
-const review = require("./models/review.js");
-const {listingSchema, reviewSchema} = require("./schema.js");
-
-
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 
-const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 
 const reviews = require("./routes/reviews.js");
@@ -54,17 +48,6 @@ app.use("/listings", listings);
 app.use("/listings/:id/reviews", reviews);
 
 
-
-
-// app.get("/testlisting", async(req, res)=>{
-//     let sampleTesting= new Listing({
-//         title: "newtitle",
-//         description: "newdescription",
-//     });
-//     await sampleTesting.save();
-//     res.send("Listing saved!");
-//     console.log("Listing saved!");
-// });
 
 
 app.all("/*splat", (req, res, next)=>{
