@@ -7,6 +7,12 @@ const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const sessionOptions ={
+    secret: "thisshouldbeabettersecret!",
+    resave: false,
+    saveUninitialized: true,
+}
 
 const ExpressError = require("./utils/ExpressError.js");
 
@@ -43,11 +49,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(cookieParser());
+app.use(session(sessionOptions));
 
 //listing routes
 app.use("/listings", listings);
 //review routes
 app.use("/listings/:id/reviews", reviews);
+
+
 
 // Error handling middleware
 app.use((err, req, res, next)=>{
