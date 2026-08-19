@@ -40,4 +40,15 @@ router.post("/login",
         res.redirect("/listings");
 }));
 
+// Route to handle user logout
+router.get("/logout", wrapAsync(async(req,res, next)=> {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        req.flash("success", "You have been logged out!");
+        res.redirect("/listings");
+    });
+}));
+
 module.exports = router;
