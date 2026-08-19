@@ -27,7 +27,14 @@ router.get("/new", isLoggedIn, wrapAsync(async(req,res)=> {
 //show route
 router.get("/:id", wrapAsync(async(req,res)=>{
     const {id} = req.params;
-    const listing = await Listing.findById(id.trim()).populate("reviews").populate("owner");  
+    const listing = await Listing.findById(id.trim())
+    .populate({
+        path: "reviews",
+         populate:{ 
+            path: "author" ,
+         },
+        })
+        .populate("owner");  
     if(!listing){
         req.flash("error", "Listing you requested for does not exists!");
         return res.redirect("/listings");
@@ -38,7 +45,7 @@ router.get("/:id", wrapAsync(async(req,res)=>{
 
 
 //create route
-router.post("/", isLoggedIn, isOwner, validateListing,  wrapAsync(async(req,res)=>{
+router.post("/", isLoggedIn, validateListing,  wrapAsync(async(req,res)=>{
  const newListing = new Listing(req.body.listing);
         newListing.owner = req.user._id; // Associate the listing with the logged-in user
         await newListing.save();

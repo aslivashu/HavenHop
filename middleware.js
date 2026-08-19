@@ -1,13 +1,19 @@
 const Listing = require("./models/listing"); 
+const review = require("./models/review"); 
 const ExpressError = require("./utils/ExpressError.js");
-const {listingSchema} = require("./schema.js");
+const {listingSchema, reviewSchema} = require("./schema.js");
  
 
 // Middleware to check if the user is logged in
- module.exports.isLoggedIn = (req, res, next) => {
+module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        req.session.redirectUrl = req.originalUrl;
-        req.flash("error", "You must be logged in to create a new listing!");
+        if (req.method !== "GET") {
+            const { id } = req.params;
+            req.session.redirectUrl = id ? `/listings/${id}` : "/listings";
+        } else {
+            req.session.redirectUrl = req.originalUrl;
+        }
+        req.flash("error", "You must be logged in to do that!");
         return res.redirect("/users/login");
     }
     next();
@@ -23,8 +29,8 @@ module.exports.saveRedirectUrl = (req, res, next) => {
 
 // Middleware to check if the logged-in user is the owner of the listing
 module.exports.isOwner = async (req, res, next) => {
-    const { id } = req.params;
-    const listing = await Listing.findById(id);
+    let { id } = req.params;
+    let listing = await Listing.findById(id);
     if (!listing.owner || !listing.owner.equals(req.user._id)) {
         req.flash("error", "You do not have permission to do that!");
         return res.redirect(`/listings/${id}`);
@@ -42,3 +48,26 @@ module.exports.validateListing = (req, res, next) => {
         next();
      }
 };
+
+// Middleware to validate review data using Joi
+module.exports.validateReview = (req, res, next) => {
+      let {error}= reviewSchema.validate(req.body)
+     if(error){
+        let errMssg= error.details.map(el => el.message).join(",");
+        throw new ExpressError(400, errMssg);
+     } else{
+        next();
+     }
+};
+
+// Middleware to check if the logged-in user is the owner of the review
+module.exports.isReviewAuthor = async (req, res, next) => {
+    let { id, reviewId } = req.params;
+    let reviewFound = await review.findById(reviewId);
+    if (!reviewFound.author || !reviewFound.author.equals(req.user._id)) {
+        req.flash("error", "You are not the author of this review!");
+        return res.redirect(`/listings/${id}`);
+    }
+    next();
+};
+

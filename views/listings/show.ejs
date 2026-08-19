@@ -22,11 +22,12 @@
           
           <!-- Header Title & Price -->
           <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-2">
-            <h2 class="show-title mb-0"><%= listing.title %></h2>
-            <div class="show-price">
-              ₹<%= listing.price.toLocaleString("en-IN") %> <span class="price-period">/ night</span>
-            </div>
-          </div>
+              <h2 class="show-title mb-0 flex-grow-1"><%= listing.title %></h2>
+              <div class="show-price text-nowrap">
+               ₹<%= listing.price.toLocaleString("en-IN") %>
+               <span class="price-period">/ night</span>
+              </div>
+           </div>
           
           <!-- Owner Display -->
           <p class="text-muted mb-2">
@@ -66,6 +67,7 @@
 
           <!-- Reviews Section -->
           <div class="reviews-section">
+            <% if (currentUser) { %>
             <div class="review-wrapper">
             <h6>Leave a Review</h6>
             <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
@@ -81,7 +83,19 @@
               <button type="submit" class="btn btn-primary">Submit Review</button>
             </form>
             </div>
-
+            <% } else { %>
+              <div class="card p-3 bg-light border-0 mb-3 text-center">
+                 <p class="text-body-secondary mb-0">
+                 Please 
+                 <a href="/users/login" 
+                 class="text-decoration-none fw-semibold">
+                 log in
+                 </a> 
+                 to leave a review.
+                 </p>
+              </div>
+          <% } %>
+        
             <hr>
           
            <!-- Show Reviews -->
@@ -94,7 +108,7 @@
                 <% listing.reviews.forEach(review => { %>
                   <div class="col-12 col-md-6">
                     <div class="card review-card h-100 p-3">
-                      <div class="user-display"><strong>@anonymous.user</strong></div>
+                      <div class="user-display"><strong>@<%= review.author.username %></strong></div>
                       <div class="rating-display"><%= review.rating %>⭐</div>
                       <div class="comment-display"><%= review.comment %></div>
                       <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
