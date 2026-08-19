@@ -26,6 +26,11 @@
               ₹<%= listing.price.toLocaleString("en-IN") %> <span class="price-period">/ night</span>
             </div>
           </div>
+          
+          <!-- Owner Display -->
+          <p class="text-muted mb-2">
+            <i>Owned by <%= listing.owner ? listing.owner.username : "Unknown" %></i>
+          </p>
 
           <!-- Location Badge -->
           <p class="show-location mb-3">

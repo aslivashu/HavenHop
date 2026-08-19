@@ -38,11 +38,12 @@ router.get("/new", isLoggedIn, wrapAsync(async(req,res)=> {
 //show route
 router.get("/:id", wrapAsync(async(req,res)=>{
     const {id} = req.params;
-    const listing = await Listing.findById(id.trim()).populate("reviews");  
+    const listing = await Listing.findById(id.trim()).populate("reviews").populate("owner");  
     if(!listing){
         req.flash("error", "Listing you requested for does not exists!");
         return res.redirect("/listings");
     }
+    console.log("Listing found:", listing);
     res.render("listings/show.ejs", {listing});
 }))
 
@@ -51,6 +52,7 @@ router.get("/:id", wrapAsync(async(req,res)=>{
 //create route
 router.post("/", isLoggedIn, validateListing, wrapAsync(async(req,res)=>{
  const newListing = new Listing(req.body.listing);
+        newListing.owner = req.user._id; // Associate the listing with the logged-in user
         await newListing.save();
         req.flash("success", "New listing created!");
         console.log("New listing created:", newListing);
