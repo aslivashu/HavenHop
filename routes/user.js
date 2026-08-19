@@ -16,8 +16,13 @@ router.post("/signup", wrapAsync(async(req,res)=> {
         const newUser = new User({email, username});
         const registeredUser = await User.register(newUser, password);
         console.log("Registered user: " + registeredUser);
+           req.login(registeredUser, (err)=> {
+            if (err) {
+                return next(err);
+            }
             req.flash("success", "Welcome to HavenHop!");
             res.redirect("/listings");  
+         });
     } catch(err) {
         req.flash("error", err.message);
         res.redirect("/users/signup");
