@@ -20,7 +20,10 @@
                     <div class="card listing-card h-100">
 
                         <!-- Listing Image -->
-                        <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>">
+                        <img src="<%= listing.image.url %>" 
+                        class="card-img-top" 
+                        alt="<%= listing.title %>"
+                        onerror="this.onerror=null; this.src='https://i.pinimg.com/1200x/9d/59/d3/9d59d34672b4b139839c530141848210.jpg';">
         
      <!-- Listing Details -->
      <div class="card-body">

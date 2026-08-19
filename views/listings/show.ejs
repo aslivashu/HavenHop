@@ -13,6 +13,7 @@
             src="<%= listing.image.url %>" 
             class="show-img" 
             alt="<%= listing.title %>"
+            onerror="this.onerror=null; this.src='https://i.pinimg.com/1200x/9d/59/d3/9d59d34672b4b139839c530141848210.jpg';"
           >
         </div>
 
@@ -46,6 +47,7 @@
           </div>
 
           <!-- Action Buttons-->
+           <% if(currentUser && listing.owner && listing.owner._id && currentUser._id.equals(listing.owner._id)) { %>
           <div class="row g-2 pt-2">
             <div class="col-6">
               <a href="/listings/<%= listing._id %>/edit" class="btn btn-outline-custom w-100 py-2 fw-semibold">
@@ -60,6 +62,7 @@
               </form>
             </div>
           </div>
+          <% } %>
 
           <!-- Reviews Section -->
           <div class="reviews-section">
@@ -92,8 +95,8 @@
                   <div class="col-12 col-md-6">
                     <div class="card review-card h-100 p-3">
                       <div class="user-display"><strong>@anonymous.user</strong></div>
-                      <div class="rating-display"> <%= review.rating %>⭐</div>
-                      <div class="comment-display"> <%= review.comment %></div>
+                      <div class="rating-display"><%= review.rating %>⭐</div>
+                      <div class="comment-display"><%= review.comment %></div>
                       <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                         <button type="submit" class="btn btn-danger-custom w-100 py-2 fw-semibold">Delete</button>
                       </form>

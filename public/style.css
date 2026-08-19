@@ -556,6 +556,7 @@ footer {
   font-size: 0.75rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  margin-left: 0.9rem;
 }
 
 .comment-display {
@@ -563,6 +564,9 @@ footer {
   width: 100%;
   font-size: 0.9rem;
   word-break: break-all;
+  padding-bottom: 0.75rem;
+  padding-left: 0.9rem;
+  padding-right: 0.9rem;
 }
 
 /* Custom Flash Messages / Alerts */

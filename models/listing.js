@@ -13,7 +13,7 @@ const listingSchema = new Schema({
         url: {
             type:String,
         default: "https://i.pinimg.com/1200x/9d/59/d3/9d59d34672b4b139839c530141848210.jpg",
-        set: (v) => v===""
+        set: (v) => (!v || v.trim() === "")
         ? "https://i.pinimg.com/1200x/9d/59/d3/9d59d34672b4b139839c530141848210.jpg" 
         : v,
     },
