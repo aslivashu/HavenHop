@@ -44,20 +44,30 @@ module.exports.createListing = async(req,res)=>{
 };
 
 //edit route
-module.exports.editListing = async(req,res)=>{
+module.exports.renderEditForm = async(req,res)=>{
     const {id} = req.params;
     const listing = await Listing.findById(id.trim());
     if(!listing){
         req.flash("error", "Listing you requested for does not exists!");
         return res.redirect("/listings");
     }
-    res.render("listings/edit.ejs", {listing});
+
+    let originalImageUrl = listing.image.url; // Store the original image URL
+    originalImageUrl = originalImageUrl.replace("/upload", "/upload/h_250,w_350,c_fill"); // Modify the URL to include resizing parameters
+    res.render("listings/edit.ejs", {listing, originalImageUrl});
 };
 
 //update route
 module.exports.updateListing = async(req,res)=>{
     const {id} = req.params;
-    await Listing.findByIdAndUpdate(id.trim(), { ...req.body.listing}); 
+    let listing = await Listing.findByIdAndUpdate(id.trim(), { ...req.body.listing}); 
+
+    if(typeof req.file !== "undefined"){
+    let url = req.file.path;
+    let filename = req.file.filename;
+    listing.image = { url, filename };
+    await listing.save();
+    }
     req.flash("success", "Listing updated successfully!");
     res.redirect(`/listings/${id}`);
 };
