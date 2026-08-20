@@ -65,16 +65,33 @@
           </div>
           <% } %>
 
+          <hr>
+
           <!-- Reviews Section -->
           <div class="reviews-section">
             <% if (currentUser) { %>
             <div class="review-wrapper">
             <h6>Leave a Review</h6>
+            <br>
             <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
-              <div class="rating-wrapper mb-3">
-                <label for="rating">Rating:</label>
-                <input type="number" id="rating" name="review[rating]" min="1" max="5"  placeholder="e.g. 5"  class="form-control" cols="25"  rows="1" required> 
-              </div>
+              <div class="mb-3">
+              <label class="d-block ">Rating:</label>
+              <fieldset class="starability-heartbeat mb-0">
+                  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                  <label for="first-rate1" title="Terrible">1 star</label>
+                  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                  <label for="first-rate2" title="Not good">2 stars</label>
+                  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                  <label for="first-rate3" title="Average">3 stars</label>
+                  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                  <label for="first-rate4" title="Very good">4 stars</label>
+                  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                  <label for="first-rate5" title="Amazing">5 stars</label>
+                </fieldset>
+                
+            </div>
+             
               <div class="mb-3">
                 <label for="comment">Comment:</label>
                 <textarea id="comment" name="review[comment]"  placeholder="share your experience" class="form-control" rows="4" required></textarea>
@@ -109,11 +126,17 @@
                   <div class="col-12 col-md-6">
                     <div class="card review-card h-100 p-3">
                       <div class="user-display"><strong>@<%= review.author.username %></strong></div>
-                      <div class="rating-display"><%= review.rating %>⭐</div>
+                      <div class="rating-display">  
+                        <p class="starability-result" 
+                           data-rating="<%= review.rating %>">
+                        </p>
+                      </div>
                       <div class="comment-display"><%= review.comment %></div>
+                      <% if (currentUser && review.author && review.author._id && currentUser._id.equals(review.author._id)) { %>
                       <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                         <button type="submit" class="btn btn-danger-custom w-100 py-2 fw-semibold">Delete</button>
                       </form>
+                      <% } %>
                     </div>
                   </div>
                 <% }); %>
