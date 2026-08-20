@@ -521,6 +521,7 @@ footer {
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.06);
   margin-bottom: 1rem;
+ 
 }
 
 .review-wrapper {
@@ -600,3 +601,8 @@ footer {
   }
 }
 
+.current-image {
+  width: 350px;
+  height: 250px;
+  object-fit: cover; /* Keeps the image from stretching */
+}
