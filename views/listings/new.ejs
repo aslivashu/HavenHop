@@ -6,7 +6,7 @@
       <h2 class="form-title mb-1">Create a New Listing</h2>
       <p class="text-body-secondary mb-4">Share your space with guests from around the world.</p>
 
-      <form method="POST" action="/listings" class="needs-validation" novalidate>
+      <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
         
         <!-- Title -->
         <div class="mb-3">
@@ -34,14 +34,14 @@
           ></textarea>
         </div>
 
-        <!-- Image URL -->
+
+        <!-- upload Image  -->
         <div class="mb-3">
-          <label for="image" class="form-label">Image URL / Link</label>
+          <label for="image" class="form-label">Upload Image</label>
           <input 
             id="image"
-            name="listing[image][url]" 
-            placeholder="https://images.unsplash.com/..." 
-            type="text" 
+            name="listing[image]" 
+            type="file" 
             class="form-control"
             
           >

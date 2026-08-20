@@ -9,19 +9,12 @@ const listingSchema = new Schema({
     },
     description: String,
     image: {
-        filename: String,
-        url: {
-            type:String,
-        default: "https://i.pinimg.com/1200x/9d/59/d3/9d59d34672b4b139839c530141848210.jpg",
-        set: (v) => (!v || v.trim() === "")
-        ? "https://i.pinimg.com/1200x/9d/59/d3/9d59d34672b4b139839c530141848210.jpg" 
-        : v,
-    },
+            url: String,
+            filename: String,
     },
     price: Number,
     location: String,
     country: String,
-    
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: 'Review'
