@@ -46,7 +46,7 @@ async function main(){
 const store = MongoStore.create({
     mongoUrl: MongoDb_ATLAS_URL,
     crypto: {
-        secret: "thisshouldbeabettersecret!"
+        secret: process.env.SECRET_KEY
     },  
     touchAfter: 24 * 3600 // time period in seconds
 });
@@ -56,7 +56,7 @@ store.on("error", function(e){
 // Session options
 const sessionOptions ={
     store,
-    secret: "thisshouldbeabettersecret!",
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     cookie: {
