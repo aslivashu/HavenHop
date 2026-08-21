@@ -125,13 +125,32 @@
                 <% listing.reviews.forEach(review => { %>
                   <div class="col-12 col-md-6">
                     <div class="card review-card h-100 p-3">
-                      <div class="user-display"><strong>@<%= review.author.username %></strong></div>
+                      <div class="d-flex justify-content-between align-items-center mb-1">
+                       <div class="user-display">
+                           <strong>@<%= review.author.username %></strong>
+                         </div>
+                          <% if (review.createdAt) { %>
+                         <div class="text-muted" style="font-size: 0.8rem;">
+                         <%= new Date(review.createdAt).toLocaleString('en-IN', { 
+                         day: 'numeric', 
+                         month: 'short', 
+                         year: 'numeric', 
+                         hour: 'numeric', 
+                         minute: '2-digit',
+                         hour12: true 
+                         }) %>
+                        </div>
+                        <% } %>
+                      </div>
+                      
                       <div class="rating-display">  
                         <p class="starability-result" 
                            data-rating="<%= review.rating %>">
                         </p>
                       </div>
+                      
                       <div class="comment-display"><%= review.comment %></div>
+                       
                       <% if (currentUser && review.author && review.author._id && currentUser._id.equals(review.author._id)) { %>
                       <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
                         <button type="submit" class="btn btn-danger-custom w-100 py-2 fw-semibold">Delete</button>
@@ -143,6 +162,7 @@
                </div>
               <% } %>
             </div>
+            
           </div>
           <hr>
                 <!-- Map Section -->

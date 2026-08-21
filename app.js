@@ -1,6 +1,4 @@
-
 require("dotenv").config();
-
 
 const path = require("path");
 const express = require("express");
@@ -12,16 +10,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const sessionOptions ={
-    secret: "thisshouldbeabettersecret!",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
-        maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-        httpOnly: true,
-    }
-}
+const { MongoStore } = require("connect-mongo");
+
 const flash = require("connect-flash");
 
 const passport = require("passport");
@@ -36,8 +26,10 @@ const listingsRouter = require("./routes/listing.js");
 const userRouter = require("./routes/user.js");
 const listingController = require("./controllers/listing.js");
 
+
 // MongoDB connection
-const Mongo_URL = "mongodb://localhost:27017/HavenHop";
+//const Mongo_URL = "mongodb://localhost:27017/HavenHop";
+const MongoDb_ATLAS_URL = process.env.ATLASDB_URI;
 
 // Connect to MongoDB
 main().then(() => {
@@ -46,11 +38,33 @@ main().then(() => {
 
 // Function to connect to MongoDB
 async function main(){
-    await mongoose.connect(Mongo_URL);
+    await mongoose.connect(MongoDb_ATLAS_URL);
 }
 
 
-
+// Session configuration
+const store = MongoStore.create({
+    mongoUrl: MongoDb_ATLAS_URL,
+    crypto: {
+        secret: "thisshouldbeabettersecret!"
+    },  
+    touchAfter: 24 * 3600 // time period in seconds
+});
+store.on("error", function(e){
+    console.log("Session store error", e);
+});
+// Session options
+const sessionOptions ={
+    store,
+    secret: "thisshouldbeabettersecret!",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // 1 week
+        maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+        httpOnly: true,
+    }
+}
 
 
 // Set up EJS as the view engine and configure middleware
