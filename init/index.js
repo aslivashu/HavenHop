@@ -4,7 +4,7 @@ const Listing = require("../models/listing.js");
 
 const Mongo_URL = "mongodb://localhost:27017/HavenHop";
 
-async function main(){
+async function main() {
     await mongoose.connect(Mongo_URL);
     console.log("Connected to DB");
 
@@ -16,7 +16,7 @@ async function main(){
     }));
 
     await Listing.insertMany(processedData);
-    console.log("Database initialized successfully with sample data and coordinates!");
+    console.log("Database initialized successfully with categories and coordinates!");
     
     await mongoose.connection.close();
     console.log("Connection closed.");
