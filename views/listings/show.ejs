@@ -145,38 +145,32 @@
             </div>
           </div>
           <hr>
-                <!-- Map -->
-                <div class="row justify-content-center mt-4">
+                <!-- Map Section -->
+             <div class="row justify-content-center mt-4">
                   <div class="col-12 col-md-10 col-lg-8">
                       <h3>Where you'll stay</h3>
-    
-                     <!-- Make width 100% so it fills the centered card width -->
-                     <div id="map" class="map-container" style="height: 400px; width: 100%; border-radius: 12px;"></div>
-    
-                       <!-- Leaflet CSS & JS -->
+          
+                      <!-- Map Container with height -->
+                      <div id="map" class="map-container" style="height: 400px; width: 100%; border-radius: 12px;"></div>
+          
+                      <!-- Leaflet CSS -->
                       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-                      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+                      <!-- Leaflet JS -->
+                      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+                      <!-- database variables -->
+                      <script>
+                        const listingCoordinates = JSON.parse('<%- JSON.stringify(listing.geometry && listing.geometry.coordinates ? listing.geometry.coordinates : [77.2090, 28.6139]) %>');
+                        const listingLocation = "<%= listing.location %>, <%= listing.country %>";
+                        const listingTitle = "<%= listing.title %>";
                       </script>
+                      <script src="/js/map.js"></script>
 
-                       <script>
-                          const coordinates = JSON.parse('<%- JSON.stringify(listing.geometry && listing.geometry.coordinates ? listing.geometry.coordinates : [77.2090, 28.6139]) %>');
-                          const latLng = [coordinates[1], coordinates[0]];
-
-                          const map = L.map('map').setView(latLng, 13);
-
-                           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                              maxZoom: 19,
-                               attribution: '© OpenStreetMap contributors'
-                               }).addTo(map);
-
-                               L.marker(latLng).addTo(map)
-                               .bindPopup("<b><%= listing.title %></b><br><%= listing.location %>")
-                               .openPopup();
-                        </script>
-                    </div>
-                </div>
+                      <script src="/js/map.js"></script>
+                  </div>
+              </div>
          </div>
-      </div>
-    </div>
-  </div>
+     </div>
+   </div>
+ </div>
 </div>

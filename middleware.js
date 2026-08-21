@@ -71,3 +71,47 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     next();
 };
 
+// Middleware to get coordinates for a given location and country 
+const axios = require('axios');
+
+module.exports.getCoordinates = async function(locationString, countryString) {
+    if (!locationString) return { coords: [77.2090, 28.6139], errorType: 'empty' };
+
+    try {
+        const query = countryString ? `${locationString}, ${countryString}` : locationString;
+        
+        const response = await axios.get('https://nominatim.openstreetmap.org/search', {
+            params: { 
+                format: 'json', 
+                q: query, 
+                limit: 1 
+            },
+            headers: { 
+                'User-Agent': 'HavenHopRealEstateApp_StudentProject_Contact@example.com' 
+            },
+            timeout: 5000 
+        });
+        
+        if (response.data && response.data.length > 0) {
+            return { 
+                coords: [parseFloat(response.data[0].lon), parseFloat(response.data[0].lat)], 
+                errorType: null 
+            };
+        } else {
+            // Location not found by the geocoder (Empty array)
+            return { coords: [77.2090, 28.6139], errorType: 'not_found' };
+        }
+    } catch (err) {
+        // Check if it's explicitly a 403 Forbidden error
+        if (err.response && err.response.status === 403) {
+            console.error("Geocoding error: 403 Forbidden (Blocked by Nominatim rate limit).");
+            return { coords: [77.2090, 28.6139], errorType: 'forbidden_403' };
+        } else if (err.code === 'ECONNABORTED') {
+            console.error("Geocoding error: Request timed out.");
+        } else {
+            console.error("Geocoding failed:", err.message);
+        }
+    }
+    
+    return { coords: [77.2090, 28.6139], errorType: 'general_error' };
+};

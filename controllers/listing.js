@@ -1,4 +1,5 @@
 const Listing = require("../models/listing.js");
+const { getCoordinates } = require("../middleware.js");
 
 
 //index route
@@ -27,7 +28,7 @@ module.exports.showListing = async(req,res)=>{
         req.flash("error", "Listing you requested for does not exists!");
         return res.redirect("/listings");
     }
-    res.render("listings/show.ejs", {listing});
+    res.render("listings/show.ejs", { listing });
 };
 
 //create route
@@ -38,6 +39,16 @@ module.exports.createListing = async(req,res)=>{
         const newListing = new Listing(req.body.listing);
         newListing.image = { url, filename };
         newListing.owner = req.user._id; // Associate the listing with the logged-in user
+        
+        const result = await getCoordinates(newListing.location, newListing.country);
+        // SAFETY CHECK: If it hit the default fallback (New Delhi coordinates), warn the user
+       if (result.errorType === 'forbidden_403') {
+         req.flash("error", "Map service temporarily blocked requests (403 Forbidden). Default map pin applied.");
+        } else if (result.errorType === 'not_found') {
+        req.flash("error", "Location not found! Please check the spelling of your location or country.");
+            }
+        newListing.geometry = { type: 'Point', coordinates: result.coords };
+
         await newListing.save();
         req.flash("success", "New listing created!");
         res.redirect('/listings')
@@ -66,8 +77,17 @@ module.exports.updateListing = async(req,res)=>{
     let url = req.file.path;
     let filename = req.file.filename;
     listing.image = { url, filename };
-    await listing.save();
     }
+    const result = await getCoordinates(listing.location, listing.country);
+    // SAFETY CHECK: Warn if location lookup failed during an update
+    if (result.errorType === 'forbidden_403') {
+    req.flash("error", "Map service temporarily blocked requests (403 Forbidden). Default map pin applied.");
+        } else if (result.errorType === 'not_found') {
+    req.flash("error", "Location not found! Please check the spelling of your location or country.");
+        }
+    listing.geometry = { type: 'Point', coordinates: result.coords };
+
+    await listing.save();
     req.flash("success", "Listing updated successfully!");
     res.redirect(`/listings/${id}`);
 };
