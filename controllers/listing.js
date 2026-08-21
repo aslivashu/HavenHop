@@ -107,6 +107,7 @@ module.exports.destroyListing = async(req, res)=>{
     res.redirect("/listings");
 };
 
+//filter route
 module.exports.index = async (req, res) => {
     let { search, category } = req.query;
     let query = {};
@@ -125,4 +126,23 @@ module.exports.index = async (req, res) => {
 
     const allListings = await Listing.find(query);
     res.render("listings/index.ejs", { allListings, search, category });
+};
+
+//search route
+module.exports.searchListings = async (req, res) => {
+    let query = req.query.q;
+    if (!query) {
+        return res.redirect("/listings");
+    }
+
+    // Search across title, location, and country
+    let allListings = await Listing.find({
+        $or: [
+            { title: { $regex: query, $options: "i" } },
+            { location: { $regex: query, $options: "i" } },
+            { country: { $regex: query, $options: "i" } }
+        ]
+    });
+
+    res.render("listings/index.ejs", { allListings, searchQuery: query });
 };

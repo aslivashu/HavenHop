@@ -715,3 +715,51 @@ footer {
     background-color: #00A6A7 !important;
     border-color: #00A6A7 !important;
 }
+
+/* Airbnb Style Pill Search Bar matching your webpage colors */
+.search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #dddddd;
+    border-radius: 40px;
+    padding: 4px 4px 4px 16px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease;
+    background-color: #fff;
+}
+
+.search-container:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.search-input-custom {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+    width: 220px;
+    color: #222;
+}
+
+.search-input-custom:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.search-btn-custom {
+    background-color: #2F3E46; /* <--- REPLACE THIS with your webpage's primary design color */
+    color: #fff;
+    border-radius: 30px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.search-btn-custom:hover {
+    background-color: #1f2a30; /* <--- Slightly darker shade of your design color for hover */
+    color: #fff;
+}

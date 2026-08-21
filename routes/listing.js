@@ -22,6 +22,9 @@ router.route("/")
         upload.single("listing[image]"),
         wrapAsync(listingController.createListing));
 
+//search route for searching listings
+router.get("/search", wrapAsync(listingController.searchListings));
+
 //new listing page route
 router.get("/new", isLoggedIn, wrapAsync(listingController.newListing));
 
