@@ -7,16 +7,16 @@ document.addEventListener("DOMContentLoaded", function () {
     // Leaflet requires [latitude, longitude]
     const latLng = [coords[1], coords[0]];
 
-    // Initialize the Leaflet map
+    // Initialize Leaflet map
     const map = L.map('map').setView(latLng, 13);
 
-    // Add OpenStreetMap tile layer
+    // OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Add marker and popup
+    // marker and popup
     const title = typeof listingTitle !== 'undefined' ? listingTitle : "Listing Location";
     const loc = typeof listingLocation !== 'undefined' ? listingLocation : "";
 
