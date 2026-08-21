@@ -2,7 +2,7 @@
 
 <!-- Hero Section  -->
 <div class="container my-4">
-    <div class="p-5 mb-5 rounded-4 text-white position-relative overflow-hidden shadow-sm" style="background: linear-gradient(rgba(47, 62, 70, 0.75), rgba(47, 62, 70, 0.75)), url('/navbar.jpg') center/cover no-repeat; min-height: 420px; display: flex; flex-direction: column; justify-content: center;">
+    <div class="p-5 mb-5 rounded-4 text-white position-relative overflow-hidden shadow-sm" style="background: linear-gradient(rgba(47, 62, 40, 0.60), rgba(47, 62, 70, 0.55)), url('https://i.pinimg.com/1200x/7c/6c/5c/7c6c5cdb3979e2b4bcbebb538fd1757b.jpg?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat; min-height: 420px; display: flex; flex-direction: column; justify-content: center;">
         <div style="max-width: 600px; z-index: 2;">
             <span class="badge rounded-pill px-3 py-2 mb-3" style="background-color: rgba(0, 166, 167, 0.9); color: #ffffff; font-weight: 600; letter-spacing: 0.5px;">
                 THE HAVENHOP EXPERIENCE
@@ -18,13 +18,29 @@
                     Start Exploring
                 </a>
                 <a href="/listings/new" class="btn btn-outline-light btn-lg px-4 py-3 fw-semibold rounded-pill">
-                    Host a Place
+                    Host a Haven
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Category -->
+    <!-- Stats Counter Bar -->
+    <div class="row text-center bg-white border rounded-4 p-4 mb-5 shadow-sm" style="border-color: rgba(0,0,0,0.06) !important;">
+        <div class="col-md-4 mb-3 mb-md-0">
+            <h2 class="fw-bold mb-0" style="color: #00A6A7;">100+</h2>
+            <p class="text-muted small mb-0">Unique Stays Worldwide</p>
+        </div>
+        <div class="col-md-4 mb-3 mb-md-0 border-start border-end">
+            <h2 class="fw-bold mb-0" style="color: #00A6A7;">4.8 ★</h2>
+            <p class="text-muted small mb-0">Average Guest Rating</p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="fw-bold mb-0" style="color: #00A6A7;">100%</h2>
+            <p class="text-muted small mb-0">Verified Property Hosts</p>
+        </div>
+    </div>
+
+    <!-- Category Filter Bar -->
     <div class="mb-5 py-2 overflow-auto">
         <div class="d-flex gap-4 text-center justify-content-between align-items-center" style="min-width: 700px;">
             <a href="/listings" class="text-decoration-none text-muted hover-dark d-flex flex-column align-items-center gap-1">
@@ -54,18 +70,18 @@
         </div>
     </div>
 
-    <!--  Popular Destinations Section -->
-         <div class="mb-5">
-             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-2">
-                 <h3 class="fw-bold m-0" style="color: #2F3E46;">Inspiration for your next trip</h3>
-                 <a href="/listings" class="text-decoration-none fw-semibold text-nowrap" style="color: #00A6A7;">Explore all locations →</a>
+    <!-- Featured Popular Destinations Section (Dynamic Random Cards) -->
+    <div class="mb-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-2">
+            <h3 class="fw-bold m-0" style="color: #2F3E46;">Inspiration for your next trip</h3>
+            <a href="/listings" class="text-decoration-none fw-semibold text-nowrap" style="color: #00A6A7;">Explore all locations →</a>
         </div>
         <div class="row g-4">
             <% for(let listing of randomListings) { %>
                 <div class="col-lg-3 col-md-6 col-12">
                     <a href="/listings/<%= listing._id %>" class="card-link">
                         <div class="card listing-card h-100 border-0 shadow-sm">
-                            <img src="<%= listing.image.url %>" alt="<%= listing.title %>" class="card-img-top">
+                           <img src="<%= (listing.image && listing.image.url) ? listing.image.url : 'https://i.pinimg.com/1200x/9d/59/d3/9d59d34672b4b139839c530141848210.jpg?auto=format&fit=crop&w=500&q=80' %>" alt="<%= listing.title %>" class="card-img-top">
                             <div class="card-body">
                                 <h5 class="fw-bold mb-1 text-dark text-truncate"><%= listing.title %></h5>
                                 <p class="text-muted small mb-2"><%= listing.location %>, <%= listing.country %></p>
@@ -75,6 +91,34 @@
                     </a>
                 </div>
             <% } %>
+        </div>
+    </div>
+
+    <!-- "How It Works" Section -->
+    <div class="mb-5 py-4">
+        <h3 class="fw-bold text-center mb-4" style="color: #2F3E46;">How HavenHop Works</h3>
+        <div class="row g-4">
+            <div class="col-md-4 text-center">
+                <div class="p-4 bg-white rounded-4 border h-100 shadow-sm" style="border-color: rgba(0,0,0,0.06) !important;">
+                    <div class="fs-1 mb-3">🔍</div>
+                    <h5 class="fw-bold mb-2">1. Discover & Choose</h5>
+                    <p class="text-muted small mb-0">Browse through handpicked destinations, review property details, and select your ideal vacation spot.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="p-4 bg-white rounded-4 border h-100 shadow-sm" style="border-color: rgba(0,0,0,0.06) !important;">
+                    <div class="fs-1 mb-3">⭐</div>
+                    <h5 class="fw-bold mb-2">2. Book Safely</h5>
+                    <p class="text-muted small mb-0">Read authentic reviews from past guests to plan your travel with total confidence and clarity.</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="p-4 bg-white rounded-4 border h-100 shadow-sm" style="border-color: rgba(0,0,0,0.06) !important;">
+                    <div class="fs-1 mb-3">✈️</div>
+                    <h5 class="fw-bold mb-2">3. Enjoy Your Stay</h5>
+                    <p class="text-muted small mb-0">Check-in effortlessly, experience unique spaces, and create wonderful lifelong memories.</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -109,6 +153,27 @@
         </div>
     </div>
 
+    <!-- Host Success Stories / Testimonials -->
+    <div class="mb-5">
+        <h3 class="fw-bold text-center mb-4" style="color: #2F3E46;">Loved by Hosts & Travelers</h3>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="p-4 bg-white rounded-4 border h-100 shadow-sm" style="border-color: rgba(0,0,0,0.06) !important;">
+                    <p class="text-muted fst-italic mb-3">"Listing my vacation property on HavenHop was remarkably straightforward. I had my first booking within a week, and managing the property details through the dashboard is an absolute breeze!"</p>
+                    <h6 class="fw-bold mb-0" style="color: #2F3E46;">— Rohan Verma</h6>
+                    <span class="text-muted small">Superhost in Goa</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-4 bg-white rounded-4 border h-100 shadow-sm" style="border-color: rgba(0,0,0,0.06) !important;">
+                    <p class="text-muted fst-italic mb-3">"Finding unique mountain cottages for weekend getaways used to take forever. HavenHop makes discovery effortless with honest reviews and crystal-clear photos."</p>
+                    <h6 class="fw-bold mb-0" style="color: #2F3E46;">— Ananya Sharma</h6>
+                    <span class="text-muted small">Frequent Traveler</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Host Call & Banner -->
     <div class="row align-items-center bg-white border rounded-4 p-4 p-md-5 mb-5 shadow-sm" style="border-color: rgba(0,0,0,0.06) !important;">
         <div class="col-lg-7 mb-4 mb-lg-0">
@@ -117,7 +182,7 @@
                 Earn extra income and unlock new opportunities by sharing your home, cabin, or guest suite with global travelers looking for unique experiences.
             </p>
             <a href="/listings/new" class="btn btn-primary-custom px-4 py-3 fw-semibold">
-                Become a Host Today
+                Host a Haven
             </a>
         </div>
         <div class="col-lg-5 text-center">
@@ -129,7 +194,17 @@
         </div>
     </div>
 
-    <!-- FAQ / Reassurance Section -->
+    <!-- Newsletter Signup Banner -->
+    <div class="p-5 rounded-4 text-center text-white mb-5 shadow-sm" style="background-color: #2F3E46;">
+        <h3 class="fw-bold mb-2 text-white">Get inspired for your next getaway</h3>
+        <p class="text-light mb-4" style="max-width: 500px; margin: 0 auto;">Sign up to receive hidden gems, travel tips, and seasonal deals straight to your inbox.</p>
+        <div class="d-flex justify-content-center gap-2 mx-auto flex-wrap" style="max-width: 450px;">
+            <input type="email" class="form-control rounded-pill px-4 py-2" placeholder="Enter your email address" style="flex: 1;">
+            <button type="button" class="btn btn-primary-custom rounded-pill px-4 py-2 text-nowrap fw-semibold">Subscribe</button>
+        </div>
+    </div>
+
+    <!-- FAQ  Section -->
     <div class="bg-white border rounded-4 p-4 p-md-5 mb-5 shadow-sm" style="border-color: rgba(0,0,0,0.06) !important;">
         <h3 class="fw-bold mb-4 text-center" style="color: #2F3E46;">Frequently Asked Questions</h3>
         <div class="row g-4">

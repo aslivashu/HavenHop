@@ -15,6 +15,11 @@ const listingSchema = new Schema({
     price: Number,
     location: String,
     country: String,
+    category: {
+        type: String,
+        enum: ["Trending", "Rooms", "Iconic Cities", "Mountains", "Castles", "Pools", "Camping", "Farms", "Arctic", "Domes"],
+        default: "Trending"
+    },
     geometry: {
         type: { type: String, enum: ['Point'], default: 'Point' },
         coordinates: { type: [Number], default: [77.2090, 28.6139] } // [Longitude, Latitude]
