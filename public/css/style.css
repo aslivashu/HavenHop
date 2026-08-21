@@ -606,3 +606,9 @@ footer {
   height: 250px;
   object-fit: cover; /* Keeps the image from stretching */
 }
+
+#map, .map-container {
+  height: 400px; 
+  width: 100%;
+  border-radius: 8px; /* Optional styling */
+}
