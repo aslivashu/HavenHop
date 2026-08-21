@@ -66,7 +66,8 @@ p.description {
 .brand-logo {
   max-height: 55px;
   width: auto;
-  margin-left: -20px; 
+  margin-left: 2rem;
+ 
 }
 
 /* Desktop navbar inner container layout */
@@ -74,6 +75,7 @@ p.description {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
 }
 
@@ -147,6 +149,13 @@ p.description {
     color: #00A6A7 !important;
     background-color: rgba(0, 166, 167, 0.1) !important;
   }
+  .brand-logo {
+  max-height: 55px;
+  width: auto;
+  margin-left: 1rem;
+ 
+}
+
 }
 
 @media (min-width: 992px) {
@@ -157,6 +166,9 @@ p.description {
     transform: none !important;
     overflow: visible !important;
   }
+
+ 
+
 }
 
 /* Footer Styles */
