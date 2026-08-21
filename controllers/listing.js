@@ -1,6 +1,13 @@
 const Listing = require("../models/listing.js");
 const { getCoordinates } = require("../middleware.js");
 
+// Render home page with random inspiration listings
+module.exports.renderHome = async (req, res) => {
+    const allListings = await Listing.find({});
+    // Shuffle the listings randomly and pick up to 4 for the inspiration section
+    const randomListings = allListings.sort(() => 0.5 - Math.random()).slice(0, 4);
+    res.render("listings/home.ejs", { randomListings });
+};
 
 //index route
 module.exports.index= async ( req, res)=>{

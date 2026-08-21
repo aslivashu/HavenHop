@@ -29,11 +29,12 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 const ExpressError = require("./utils/ExpressError.js");
+const wrapAsync = require("./utils/wrapAsync.js");
 
 const reviewsRouter = require("./routes/reviews.js");
 const listingsRouter = require("./routes/listing.js");
 const userRouter = require("./routes/user.js");
-
+const listingController = require("./controllers/listing.js");
 
 // MongoDB connection
 const Mongo_URL = "mongodb://localhost:27017/HavenHop";
@@ -50,10 +51,7 @@ async function main(){
 
 
 
-// Middleware to parse request bodies
-app.get("/", (req, res) => { 
-  res.send("Hi, welcome to HavenHop!");
-}); 
+
 
 // Set up EJS as the view engine and configure middleware
 app.set("view engine", "ejs");
@@ -83,12 +81,24 @@ app.use((req, res, next)=>{
     next();
 });
 
+//root route or home route
+app.get("/", wrapAsync(listingController.renderHome));
 //listing routes
 app.use("/listings", listingsRouter);
 //review routes
 app.use("/listings/:id/reviews", reviewsRouter);
 //user routes
 app.use("/users", userRouter);
+
+// Static info routes
+    //term route
+app.get("/terms", (req, res) => {
+    res.render("terms.ejs");
+});
+    //privacy policy route
+app.get("/privacy-policy", (req, res) => {
+    res.render("privacy.ejs");
+});
 
 // Catch-all route for handling 404 errors
 app.all("/*splat", (req, res, next)=>{
