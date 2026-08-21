@@ -29,7 +29,7 @@ const listingController = require("./controllers/listing.js");
 
 // MongoDB connection
 //const Mongo_URL = "mongodb://localhost:27017/HavenHop";
-const MongoDb_ATLAS_URL = process.env.ATLASDB_URI;
+const MongoDb_ATLAS_URL = process.env.ATLASDB_URL;
 
 // Connect to MongoDB
 main().then(() => {
