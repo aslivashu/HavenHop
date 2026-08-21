@@ -14,7 +14,7 @@ async function main() {
     
     const processedData = initdata.data.map((obj) => ({
         ...obj,
-        owner: "6a856ffde8f8fb133537a967"
+        owner: "6a88ae3940a095338ed90497"
     }));
 
     await Listing.insertMany(processedData);
