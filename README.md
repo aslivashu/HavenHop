@@ -1,116 +1,136 @@
-# WeatherWebApp
+# HavenHop
 
-A high-performance, responsive weather application built with React, featuring a modern glassmorphism design and Samsung One UI-inspired dynamic gradients. This application includes automated global day and night detection, live regional local time tracking, and smooth, physics-inspired CSS/SVG animations that adapt seamlessly to worldwide forecasts and extreme weather conditions. **[Check out the Live App](https://weather-app-rib4.vercel.app/)**
+HavenHop is a comprehensive full-stack web application designed for vacation rental property discovery, property management, user authentication, interactive geolocation mapping, and user-generated reviews.
 
----
-
-## Key Features
-
-* **Global Forecasting & Regional Local Time:** Search any city worldwide to retrieve current meteorological data, including temperature, feels-like metrics, daily highs and lows, relative humidity, atmospheric pressure, sunrise and sunset schedules, and the precise local time for that specific region.
-* **Smart Day & Night Theme Engine:** Bypasses local device clock constraints by utilizing the target city's exact timezone offset and API condition codes to automatically switch between bright daytime aesthetics and eye-friendly dark mode gradients.
-* **Granular Weather Condition Mapping:**
-* *Daytime Themes:* Vibrant palettes explicitly configured for sunny, clear skies, clouds, haze, rain, snow, thunderstorms, and sleet.
-* *Nighttime Themes:* Specialized dark palettes (`night-clear`, `night-cloudy`, `night-rainy`, `night-snowy`, `night-haze`, `night-storm`, and `night-sleet`) designed for evening visibility.
-
-
-* **Advanced Extreme Weather Logic:** Custom condition triggers detect "Squalls", "Torrential Rain", "Sleet" (simultaneous rain and snow), and even simulate "Heat Lightning" on hot, highly humid, overcast days.
-* **Realistic SVG Weather Physics:** Utilizes optimized 60 FPS CSS keyframe animations paired with scalable vector graphics (SVG). Features double-strobe jagged lightning bolts with plasma drop-shadow glows, synchronized ambient cloud flashes, falling rain particles, drifting snowflakes, and rolling mist wisps.
-* **Intelligent Celestial Rendering:** The sun and moon automatically hide behind the cloud layer during heavy storms, overcast conditions, and torrential downpours for maximum immersion.
-* **Air Quality Index (US EPA):** Computes standard United States AQI metrics based on PM2.5 concentrations, delivering a detailed breakdown of both PM2.5 and PM10 microgram measurements.
-* **Responsive Layout Design:** Adapts smoothly across various viewports, featuring an optimized grid configuration for desktop environments and dedicated full-width cards for mobile layouts.
+Live Application: [https://havenhop.onrender.com](https://havenhop.onrender.com)
 
 ---
 
-## Architecture & Core Logic
+## Technical Stack & Architecture
 
-### 1. Regional Local Time & Timezone Calculation (`SearchBox.jsx`)
+### Backend Infrastructure
 
-To resolve discrepancies caused by differing geographical time zones, the application processes time data directly from the OpenWeatherMap payload:
+* **Runtime Environment:** Node.js
 
-* Retrieves the raw `timezone` offset value in seconds from UTC.
-* Computes the current UTC timestamp in milliseconds and applies the city-specific offset.
-* Formulates a localized 12-hour time string and tracks the exact `cityHour` integer to govern global day/night state transitions.
 
-### 2. Theme & Day/Night Engine (`WeatherApp.jsx`)
+* **Framework:** Express.js for robust RESTful routing, middleware handling, and controller pattern structuring.
 
-* **Time Validation:** Evaluates whether the API weather condition icon ends with `'n'` or if the target city's local hour falls outside daytime boundaries (before 6:00 AM or at/after 7:00 PM).
-* **State Mapping:** Evaluates active meteorological conditions (such as precipitation, atmospheric obstruction, cloud cover, and solar clarity) to assign corresponding Samsung One UI-inspired CSS gradient themes. Evaluates simultaneous variables to trigger complex backgrounds like `sleet` (snow + rain).
 
-### 3. Visual Effects Pipeline (`WeatherEffects.jsx` & CSS)
+* **Database & ODM:** MongoDB Atlas paired with Mongoose for schema modeling, document validation, and database operations.
 
-* **Vector Lightning Rendering:** Uses `vector-effect="non-scaling-stroke"` to maintain sharp, 2px-wide jagged lightning paths across all screen sizes. Combines CSS `drop-shadow` stacking to create a neon/plasma illusion.
-* **Particle Generation:** Leverages JavaScript array mapping to dynamically instantiate randomized particle structures for rain and snow layers, allowing them to render independently or simultaneously.
-* **Atmospheric Styling:** Implements radial gradients for solar illumination, a pulsing lunar radiance effect (`.moon-glow-effect`), blurred drifting cloud containers (`.cloud-layer`), and shifting atmospheric haze wisps. Includes conditional blockers to dynamically mount/unmount celestial glows during heavy weather events.
 
----
+* **Authentication & Session Management:** Passport.js utilizing Local Strategy for secure credential verification, alongside `express-session` and `connect-mongo` for persistent session storage directly within MongoDB Atlas.
+* **Image Management:** Multer middleware combined with Cloudinary storage API for handling multipart form data and cloud image hosting.
+* **Security & Validation:** Joi schema validation for server-side input sanitization, custom error-handling classes (`ExpressError`), and asynchronous error-wrapper utilities (`wrapAsync`).
 
-## Tech Stack
+### Frontend Interface
 
-* **Frontend:** React.js
-* **Styling:** Custom CSS (Glassmorphism, Flexbox, Gradients, Keyframe Animations, SVG Physics)
-* **Icons:** Material-UI (MUI)
-* **APIs:** OpenWeatherMap Weather & Air Pollution APIs
+* **Templating Engine:** Embedded JavaScript (EJS) rendered dynamically via `ejs-mate` layout management.
+
+
+* **Styling Framework:** Bootstrap 5 for responsive design, custom CSS stylesheets, and Starability CSS for interactive star-rating components.
+* **Mapping & Geolocation:** Leaflet.js and OpenStreetMap integration for dynamic marker rendering and coordinate visualization on property detail pages.
 
 ---
 
-## Local Development Guide
+## Detailed Feature Implementation
 
-To set up and run this project locally, execute the following instructions in your terminal:
+### 1. User Management and Authentication System
+
+* **Registration & Login:** Users can create an account or authenticate securely using local strategies provided by Passport.js. Passwords are automatically salted and hashed using passport-local-mongoose.
+* **Session Persistence:** Express sessions are backed by MongoDB using `connect-mongo`, ensuring user authentication states persist across server restarts.
+* **Authorization Controls:** Middleware checks are implemented to verify user privileges. Only designated property owners or review authors can access edit, update, or delete operations for their respective resources.
+
+### 2. Property Listing Management (CRUD Operations)
+
+* **Creation:** Authorized users can add new rental properties specifying a title, description, price per night, location, country, category, and an image upload.
+* **Read / Discovery:** Users can browse all available listings on the home/index views, filter by categories, and view comprehensive details on individual listing pages.
+* **Update & Deletion:** Property owners retain full control to edit property specifications or permanently delete listings from the database.
+
+### 3. Geolocation and Interactive Map Integration
+
+* **Geospatial Data:** Listings store geographic coordinates (`geometry.coordinates`) alongside textual location strings.
+* **Client-Side Mapping:** Leaflet.js initializes an interactive map component on the show page, translating stored coordinates into visual markers that pinpoint the property location.
+
+### 4. Review and Rating System
+
+* **Interactive Ratings:** Authenticated users can submit feedback by selecting a star rating (1 to 5 stars) using Starability animations and writing text comments.
+* **Metadata Tracking:** Each review document records the associated author (`ref: 'User'`), review text, numerical rating, and an automated timestamp (`createdAt`).
+* **Granular Deletion:** Review authors can delete their individual reviews, which dynamically updates the listing's review collection.
+
+---
+
+## Local Development and Installation
 
 ### Prerequisites
 
-Verify that [Node.js](https://nodejs.org/) is installed on your workstation.
+Ensure Node.js and npm are installed on your local machine.
 
-### Step 1: Clone the repository
+### Installation Steps
 
+1. Clone the repository:
 ```bash
-git clone https://github.com/aslivashu/WeatherApp.git
+git clone https://github.com/aslivashu/havenhop.git
+cd HavenHop
 
 ```
 
-### Step 2: Navigate to the project directory
 
-```bash
-cd WeatherApp
-
-```
-
-### Step 3: Install dependencies
-
+2. Install dependencies:
 ```bash
 npm install
 
 ```
 
-### Step 4: Start the development server
 
-```bash
-npm run dev
+3. Create a `.env` file in the root directory and configure the environment variables:
+```env
+ATLASDB_URI=your_mongodb_atlas_connection_string
+SECRET=your_session_secret
+CLOUD_NAME=your_cloudinary_cloud_name
+CLOUD_API_KEY=your_cloudinary_api_key
+CLOUD_API_SECRET=your_cloudinary_api_secret
 
 ```
 
-Open the provided local development link (typically `http://localhost:5173`) in your web browser.
 
-### API Configuration Notice
+4. Initialize or seed the database with sample listing data:
+```bash
+node init/index.js
 
-To facilitate immediate out-of-the-box testing, a default free-tier OpenWeatherMap API key has been included within `SearchBox.jsx`. If you plan to fork this repository or deploy a production instance, please register for your own complimentary API key at OpenWeatherMap and replace the existing key to prevent rate-limiting restrictions.
+```
+
+
+5. Start the local server using nodemon:
+```bash
+nodemon app.js
+
+```
+
+
+6. Access the application in your browser at `http://localhost:8080`.
 
 ---
 
-## Contributing
+## Project Directory Structure
 
-Contributions are always welcome! If you'd like to improve this weather app:
+```text
+HavenHop/
+├── controllers/      # Modular business logic for listings, reviews, and users
+├── init/             # Mock datasets and database initialization scripts
+├── models/           # Mongoose schemas (Listing, Review, User)
+├── public/           # Client-side static assets (CSS stylesheets, custom JS, images)
+├── routes/           # Express router definitions (listing.js, reviews.js, user.js)
+├── utils/            # Custom utility functions (ExpressError.js, wrapAsync.js)
+├── views/            # EJS template files (layouts, includes, listings, users)
+├── app.js            # Express application entry point and middleware configuration
+├── cloudConfig.js    # Cloudinary storage and multer storage configuration
+└── middleware.js     # Custom authorization, authentication, and validation checks
 
-1. **Fork** the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a **Pull Request**
+```
 
 ---
 
 ## License
 
-This project is open-source and available under the [MIT License](https://www.google.com/search?q=LICENSE).
-
-*Developed by Sarthak*
+This project is licensed under the terms of the MIT License.
