@@ -65,7 +65,7 @@ Ensure Node.js and npm are installed on your local machine.
 
 1. Clone the repository:
 ```bash
-git clone [https://github.com/aslivashu/havenhop.git](https://github.com/aslivashu/havenhop.git)
+git clone [https://github.com/aslivashu/havenhop.git]
 cd HavenHop
 
 ```
