@@ -1,13 +1,11 @@
-Here is your updated `README.md` for **HavenHop**. It incorporates your official tagline right at the top, cleans up the project introduction, and maintains your professional technical documentation structure.
 
-```markdown
 # HavenHop — Vacation Rental Platform
 
 > *"Your escape, anywhere you desire."*
 
 HavenHop is a comprehensive full-stack web application designed for vacation rental property discovery, property management, user authentication, interactive geolocation mapping, and user-generated reviews.
 
-Live Application: [https://havenhop.onrender.com](https://havenhop.onrender.com)
+Live Application: [https://havenhop.onrender.com]
 
 ---
 
