@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /users/login
+Disallow: /users/signup
+
+Sitemap: https://havenhop.onrender.com/sitemap.xml
