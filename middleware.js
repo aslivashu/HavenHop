@@ -79,15 +79,18 @@ module.exports.getCoordinates = async function(locationString, countryString) {
 
     try {
         const query = countryString ? `${locationString}, ${countryString}` : locationString;
+        const userAgent = process.env.GEOCODING_USER_AGENT ||
+            'HavenHop/1.0 (https://github.com/aslivashu/havenhop)';
         
         const response = await axios.get('https://nominatim.openstreetmap.org/search', {
             params: { 
-                format: 'json', 
+                format: 'jsonv2', 
                 q: query, 
                 limit: 1 
             },
             headers: { 
-                'User-Agent': 'HavenHopRealEstateApp_StudentProject_Contact@example.com' 
+                'User-Agent': userAgent,
+                'Accept-Language': 'en'
             },
             timeout: 5000 
         });
@@ -102,10 +105,8 @@ module.exports.getCoordinates = async function(locationString, countryString) {
             return { coords: [77.2090, 28.6139], errorType: 'not_found' };
         }
     } catch (err) {
-        // Check if it's explicitly a 403 Forbidden error
         if (err.response && err.response.status === 403) {
-            console.error("Geocoding error: 403 Forbidden (Blocked by Nominatim rate limit).");
-            return { coords: [77.2090, 28.6139], errorType: 'forbidden_403' };
+            console.error("Geocoding error: 403 Forbidden.");
         } else if (err.code === 'ECONNABORTED') {
             console.error("Geocoding error: Request timed out.");
         } else {
